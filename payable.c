@@ -1,9 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-
-#define MAX 20
-
 struct PayableTax {
     char employee_name[50];
     char department[40];
@@ -15,7 +9,7 @@ struct PayableTax {
     char bracket_label[30];
 };
 
-struct PayableTax records[MAX];
+struct PayableTax records[20];
 int recordCount = 0;
 
 void validateSalaryInput(double *salary) {
@@ -84,7 +78,8 @@ void calculatePayableTax(char name[], char dept[], char id[],
 void savePayableRecord(char name[], char dept[], char id[], 
                         double salary, double epf, 
                         double tax, double net) {
-    if (recordCount >= MAX) {
+                            
+    if (recordCount >= 20) {
         printf("\nStorage full! Cannot save more records.\n");
         return;
     }

@@ -8,22 +8,6 @@
 /* -- Array sizes -- */
 #define MAX 20
 
-struct PayableTax {
-
-    char employee_name[50];
-    char department[40];
-    char emp_id[12];
-    double monthly_salary;
-    double epf_amount;
-    double tax_amount;
-    double net_salary;
-    char bracket_label[30];
-
-};
-
-struct PayableTax records[MAX];
-int recordCount = 0;
-
 /* ------------------------------------------
    PASTE ALL 5 STRUCTS HERE (one per member)
    ------------------------------------------ */
@@ -54,16 +38,16 @@ int main() {
 				   displayWithholdingMenu(); 
 				   break;
             case 2: 
-				   displayPayableMenu();     
+				   displayPayableMenu();    
 				   break;
             case 3: 
 				   displayIncomeMenu();      
 				   break;
             case 4: 
-				   displaySSCLMenu();        
+				   displaySSCLMenu(); 
 				   break;
             case 5: 
-				   displayLeasingMenu();     
+				   displayLeasingMenu();
 				   break;
             case 6:
                 printf("\n Exiting... Goodbye!\n\n");
