@@ -34,20 +34,20 @@ int main() {
 
         switch (choice) {
             case 1: 
-				displayWithholdingMenu(); 
-				break;
+				   displayWithholdingMenu(); 
+				   break;
             case 2: 
-				displayPayableMenu();     
-				break;
+				   displayPayableMenu();     
+				   break;
             case 3: 
-				displayIncomeMenu();      
-				break;
+				   displayIncomeMenu();      
+				   break;
             case 4: 
-				displaySSCLMenu();        
-				break;
+				   displaySSCLMenu();        
+				   break;
             case 5: 
-				displayLeasingMenu();     
-				break;
+				   displayLeasingMenu();     
+				   break;
             case 6:
                 printf("\n Exiting... Goodbye!\n\n");
                 break;
