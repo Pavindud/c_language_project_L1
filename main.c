@@ -4,8 +4,25 @@
 #include <math.h>
 #include <ctype.h>
 
+#include "payable.c"
 /* -- Array sizes -- */
 #define MAX 20
+
+struct PayableTax {
+
+    char employee_name[50];
+    char department[40];
+    char emp_id[12];
+    double monthly_salary;
+    double epf_amount;
+    double tax_amount;
+    double net_salary;
+    char bracket_label[30];
+
+};
+
+struct PayableTax records[MAX];
+int recordCount = 0;
 
 /* ------------------------------------------
    PASTE ALL 5 STRUCTS HERE (one per member)
