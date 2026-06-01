@@ -16,6 +16,7 @@ struct SSCL_Tax{
 struct SSCL_Tax s[100];
 int count=0;
 
+//functions
 double calculateSSCL(double, int);
 double calculateVAT(double, double);
 double calculateSaleTax(double, double);
@@ -31,11 +32,11 @@ int main(){
     while(1==1){
         int cat1,cat2;
         printf("_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_SSCL Tax Calculator_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_\n");
-        printf("\t\t 1.calculate tax\n");
-        printf("\t\t 2.History\n");
+        printf("\t\t 1.Calculate new tax\n");
+        printf("\t\t 2.View saved records\n");
         printf("\t\t 3.Filter by Category\n");
         printf("\t\t 4.Exit\n");
-        printf("Enter the selection: ");
+        printf("Enter your choice: ");
         scanf("%d", &cat2);
         switch(cat2){
         case 1:
@@ -44,21 +45,21 @@ int main(){
                 while ((c = getchar()) != '\n' && c != EOF);
                 fgets(s[count].bsName, sizeof(s[count].bsName), stdin);
                 s[count].bsName[strcspn(s[count].bsName, "\n")] = 0;
-                printf("Enter the register number: ");
+                printf("Enter the registration number: ");
                 scanf("%d",&s[count].regNumber);
-                printf("Enter the total sales in the year: ");
+                printf("Enter the total sales for the year (Rs): ");
                 scanf("%lf", &s[count].goodsValues);
-                if(s[count].goodsValues<60000){
-                    printf("taxable limit is not exiding.");
+                if(s[count].goodsValues<60000000){
+                    printf("The sales amount does not exceed the taxable limit of Rs. 60,000,000.");
                     break;
                 }
-                printf("The categories:\n");
+                printf("The business categories:\n");
                 printf("\t\t 1.Importers\n");
                 printf("\t\t 2.Manufacturers\n");
                 printf("\t\t 3.Service Providers\n");
                 printf("\t\t 4.Wholesalers and Retailers\n");
                 printf("\t\t 5.Other\n");
-                printf("Enter the category(1/2/3/4/5): ");
+                printf("Enter your category(1/2/3/4/5): ");
                 scanf("%d", &cat1);
                 switch(cat1){
                 case 1:
@@ -74,7 +75,7 @@ int main(){
                     count++
                     break;
                 case 4:
-                    printf("are you distributor(Y/N)?: ");
+                    printf("Are you a distributor (Y/N)?: ");
                     scanf(" %c", &ch);
                     if(ch=='y'||ch=='Y'){
                         s[count] = processCategory(s[count], "Wholesalers and Retailers", 25);
@@ -87,11 +88,11 @@ int main(){
                     }
                 case 5:
                 default:
-                    printf("SSCL tax is not for other categories.\n");
+                    printf("SSCL tax does not apply to this category.\n");
                 }
-                printf("Do you need to calculate again: \n");
-                printf("\t\t 1.yes\n");
-                printf("\t\t 2.no\n");
+                printf("Do you want to calculate another tax?: \n");
+                printf("\t\t 1.Yes\n");
+                printf("\t\t 2.No\n");
                 scanf("%d", &x);
                 if(x==2){
                     break;
@@ -132,7 +133,7 @@ void displayCal(struct SSCL_Tax record){
     printf("\n======================================================\n");
     printf("                SSCL TAX BREAKDOWN                    \n");
     printf("======================================================\n");
-    printf("business name:       %s\n", record.bsName);
+    printf("Business name:       %s\n", record.bsName);
     printf("Register number:      %d\n", record.regNumber);
     printf("Category:              %s\n\n", record.goodCategory);
     printf("1. Original Goods Value       : Rs. %.2lf\n", record.goodsValues);
