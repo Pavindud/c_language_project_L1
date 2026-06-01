@@ -1,9 +1,8 @@
 #define PERSONAL_RELIEF 1800000.0
 
-/* Taxpayer record structure */
 struct IncomeTax {
     char   taxpayer_name[50];
-    char   tax_category[30];    /* income bracket label */
+    char   tax_category[30];  
     char   nic[15];
     double annual_income;
     double tax_amount;
@@ -13,13 +12,13 @@ struct IncomeTax {
 struct IncomeTax records[MAX];
 int recordCount = 0;
 
-/* Helper function to convert a character to uppercase */
+//convert character to uppercase 
 char charToUpper(char c) {
     if (c >= 'a' && c <= 'z') return c - 32;
     return c;
 }
 
-/* 1. Validate that income input is greater than zero */
+//check income input is valid
 void validateIncomeInput(double *income) {
     do {
         printf("  Enter Annual Income (Rs.): ");
@@ -29,7 +28,7 @@ void validateIncomeInput(double *income) {
     } while (*income <= 0);
 }
 
-/* 2. Set the tax bracket label based on taxable income */
+//tax type labeling
 void getBracketLabel(double annual_income, char *label) {
     double taxable = annual_income - PERSONAL_RELIEF;
 
@@ -41,7 +40,7 @@ void getBracketLabel(double annual_income, char *label) {
     else                         strcpy(label, "Self-Employed (36%)");
 }
 
-/* 3. Calculate income tax using progressive slab rates */
+//income tax calculation
 double calculateIncomeTax(double annual_income) {
     double taxable = annual_income - PERSONAL_RELIEF;
     double tax     = 0.0;
@@ -63,7 +62,7 @@ double calculateIncomeTax(double annual_income) {
     return tax;
 }
 
-/* 4. Save a taxpayer record into the global array */
+//putting taxpayer record into global array
 void saveIncomeRecord(char name[], char nic[], int year,
                       double income, double tax) {
 
@@ -72,8 +71,8 @@ void saveIncomeRecord(char name[], char nic[], int year,
         return;
     }
 
-    strcpy(records[recordCount].taxpayer_name, name);  /* copy name into struct */
-    strncpy(records[recordCount].nic, nic, 14);         /* copy NIC into struct */
+    strcpy(records[recordCount].taxpayer_name, name);
+    strncpy(records[recordCount].nic, nic, 14); 
     records[recordCount].nic[14] = '\0';
 
     records[recordCount].annual_income = income;
@@ -86,7 +85,7 @@ void saveIncomeRecord(char name[], char nic[], int year,
     printf("\n  Record saved successfully! Total records: %d\n", recordCount);
 }
 
-/* 5. Search records by NIC using strcmp (case-insensitive) */
+//search record
 void searchByNIC() {
     char query[15], upper_query[15], upper_stored[15];
     int  found = 0, i, j;
@@ -99,13 +98,10 @@ void searchByNIC() {
     printf("\n  Enter NIC to Search: ");
     scanf("%14s", query);
 
-    /* check NIC length */
     if (strlen(query) < 9) {
         printf("\n  Invalid NIC! Must be at least 9 characters.\n");
         return;
     }
-
-    /* convert to uppercase */
     for (i = 0; query[i]; i++) upper_query[i] = charToUpper(query[i]);
     upper_query[i] = '\0';
 
@@ -115,11 +111,11 @@ void searchByNIC() {
 
     for (i = 0; i < recordCount; i++) {
 
-        /* convert stored NIC to uppercase */
+        //convert stored NIC to uppercase
         for (j = 0; records[i].nic[j]; j++) upper_stored[j] = charToUpper(records[i].nic[j]);
         upper_stored[j] = '\0';
 
-        if (strcmp(upper_query, upper_stored) == 0) {   /* check if NIC matches */
+        if (strcmp(upper_query, upper_stored) == 0) {   //check if NIC matches
             printf("  Name        : %s\n",       records[i].taxpayer_name);
             printf("  NIC         : %s\n",       records[i].nic);
             printf("  Year        : %d\n",       records[i].tax_year);
@@ -139,7 +135,7 @@ void searchByNIC() {
         printf("  Total found: %d record(s)\n", found);
 }
 
-/* 6. Sort records by annual income ascending (bubble sort) */
+//sort records by annual income
 void sortByAnnualIncome() {
     int i, j;
     struct IncomeTax temp;
@@ -163,7 +159,7 @@ void sortByAnnualIncome() {
     printf("  Use 'Display All Records' to view sorted list.\n");
 }
 
-/* 7. Display all saved taxpayer records */
+//display all taxpayer records
 void displayIncomeSummary() {
     int i;
 
@@ -193,7 +189,7 @@ void displayIncomeSummary() {
     }
 }
 
-/* Sub-menu for Module 3 - called from main menu case 3 */
+//sub menu
 void displayIncomeMenu() {
     int    choice;
     char   name[50], nic[15], confirm[5];
