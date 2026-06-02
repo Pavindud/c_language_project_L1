@@ -315,9 +315,3 @@ void displayWithholdingMenu() {
 
     } while (option != 6);
 }
-
-int main() {
-    printf("\n  === Testing Member 1: Withholding Tax Module ===\n");
-    displayWithholdingMenu();
-    return 0;
-}
