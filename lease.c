@@ -136,7 +136,7 @@ void  displayAllLeasingRecords(struct LeasingPayment *records[], int count){
     }
 }
 
-int main() {
+int displayLeasingMenu() {
     struct LeasingPayment storage[20];
     struct LeasingPayment *records[20];
     int count = 0;
