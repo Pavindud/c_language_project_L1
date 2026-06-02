@@ -185,38 +185,26 @@ void sortRecordsBySalary() {
 
 void displayAllEmployees() {
     int i;
-    char formatted_salary[20];
-    char formatted_tax[20];
-    char formatted_net[20];
-
     if (recordCount == 0) {
-        printf("\nNo records found!\n");
+        printf("\n No records found!\n");
         return;
     }
-
     printf("\n========================================\n");
     printf("       ALL EMPLOYEE TAX RECORDS         \n");
     printf("========================================\n");
     printf(" Total Records: %d\n", recordCount);
     printf("========================================\n");
-
     for (i = 0; i < recordCount; i++) {
-
-        /* Use sprintf for formatted currency output */
-        sprintf(formatted_salary, "Rs. %.2f", records[i].monthly_salary);
-        sprintf(formatted_tax,    "Rs. %.2f", records[i].tax_amount);
-        sprintf(formatted_net,    "Rs. %.2f", records[i].net_salary);
-
         printf("\n Record #%d\n", i + 1);
         printf(" ----------------------------------------\n");
-        printf(" Name        : %s\n", records[i].employee_name);
-        printf(" Emp ID      : %s\n", records[i].emp_id);
-        printf(" Department  : %s\n", records[i].department);
-        printf(" Salary      : %s\n", formatted_salary);
+        printf(" Name        : %s\n",        records[i].employee_name);
+        printf(" Emp ID      : %s\n",        records[i].emp_id);
+        printf(" Department  : %s\n",        records[i].department);
+        printf(" Salary      : Rs. %.2f\n",  records[i].monthly_salary);
         printf(" EPF (8%%)    : Rs. %.2f\n", records[i].epf_amount);
-        printf(" Tax         : %s\n", formatted_tax);
-        printf(" Net Salary  : %s\n", formatted_net);
-        printf(" Bracket     : %s\n", records[i].bracket_label);
+        printf(" Tax         : Rs. %.2f\n",  records[i].tax_amount);
+        printf(" Net Salary  : Rs. %.2f\n",  records[i].net_salary);
+        printf(" Bracket     : %s\n",        records[i].bracket_label);
         printf(" ----------------------------------------\n");
     }
 }
