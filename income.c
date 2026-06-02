@@ -1,5 +1,5 @@
 #define PERSONAL_RELIEF 1800000.0
-
+#define MAX 20
 struct IncomeTax {
     char   taxpayer_name[50];
     char   tax_category[30];  
