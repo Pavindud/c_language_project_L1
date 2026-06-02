@@ -5,16 +5,13 @@
 #include <ctype.h>
 
 #include "payable.c"
-/* -- Array sizes -- */
+#include "income.c"
+#include "SSCL.c"
+#include "withholding_tax.c"
+#include "lease.c"
+
+
 #define MAX 20
-
-/* ------------------------------------------
-   PASTE ALL 5 STRUCTS HERE (one per member)
-   ------------------------------------------ */
-
-/* ------------------------------------------
-   PASTE ALL 35 FUNCTIONS HERE
-   ------------------------------------------ */
 
 int main() {
     int choice;

@@ -1,5 +1,4 @@
-#include<stdio.h>
-#include<string.h>
+
 #define VAT 0.18
 #define SSCL 0.025
 
@@ -64,26 +63,26 @@ int main(){
                 switch(cat1){
                 case 1:
                     s[count] = processCategory(s[count], "Importers", 100);
-                    count++
+                    count++;
                     break;
                 case 2:
                     s[count] = processCategory(s[count], "Manufacturers", 85);
-                    count++
+                    count++;
                     break;
                 case 3:
                     s[count] = processCategory(s[count], "Service Providers", 100);
-                    count++
+                    count++;
                     break;
                 case 4:
                     printf("Are you a distributor (Y/N)?: ");
                     scanf(" %c", &ch);
                     if(ch=='y'||ch=='Y'){
                         s[count] = processCategory(s[count], "Wholesalers and Retailers", 25);
-                        count++
+                        count++;
                         break;
                     }else{
                         s[count] = processCategory(s[count], "Wholesalers and Retailers", 50);
-                        count++
+                        count++;
                         break;
                     }
                 case 5:
