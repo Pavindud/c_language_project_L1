@@ -1,6 +1,5 @@
-#include <stdio.h>
-#include <string.h>
-
+#include<stdio.h>
+#include<string.h>
 #define VAT 0.18
 #define SSCL 0.025
 
@@ -26,8 +25,23 @@ void displayAllBusinesses();
 struct SSCL_Tax processCategory(struct SSCL_Tax r, const char *, int);
 void filterByCategory();
 
+void flushBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
 
-int main(){
+int readInt(int *value, const char *errorMsg) {
+    if(scanf("%d", value) != 1) {
+        flushBuffer();
+        printf("%s\n", errorMsg);
+        return 0;
+    }
+    flushBuffer();
+    return 1;
+}
+
+
+int displaySSCLMenu(){
     int x,c;
     char ch;
     while(1==1){
@@ -38,20 +52,31 @@ int main(){
         printf("\t\t 3.Filter by Category\n");
         printf("\t\t 4.Exit\n");
         printf("Enter your choice: ");
-        scanf("%d", &cat2);
+        if(scanf("%d", &cat2) != 1) {
+            flushBuffer();
+            printf("Invalid input. Please enter a number.\n\n");
+            continue;
+        }
+        flushBuffer();
         switch(cat2){
         case 1:
             while(1==1){
+                int shouldExit = 0;
                 printf("Enter the business name: ");
-                while ((c = getchar()) != '\n' && c != EOF);
                 fgets(s[count].bsName, sizeof(s[count].bsName), stdin);
                 s[count].bsName[strcspn(s[count].bsName, "\n")] = 0;
+
                 printf("Enter the registration number: ");
-                scanf("%d",&s[count].regNumber);
+                if(scanf("%d", &s[count].regNumber) != 1) {
+                        flushBuffer();
+                        printf("Invalid input. Please enter a valid number.\n");
+                        continue;
+                    }
+                    flushBuffer();
                 printf("Enter the total sales for the year (Rs): ");
                 scanf("%lf", &s[count].goodsValues);
                 if(s[count].goodsValues<60000000){
-                    printf("The sales amount does not exceed the taxable limit of Rs. 60,000,000.");
+                    printf("The sales amount does not exceed the taxable limit of Rs. 60,000,000.\n");
                     break;
                 }
                 printf("The business categories:\n");
@@ -90,16 +115,29 @@ int main(){
                 case 5:
                 default:
                     printf("SSCL tax does not apply to this category.\n");
-                }
-                printf("Do you want to calculate another tax?: \n");
-                printf("\t\t 1.Yes\n");
-                printf("\t\t 2.No\n");
-                scanf("%d", &x);
-                if(x==2){
+                    printf("Do you want to calculate another tax?: \n");
+                    printf("\t\t 1.Yes\n");
+                    printf("\t\t 2.No\n");
+                    printf("Choice: ");
+                    while ((c = getchar()) != '\n' && c != EOF);
+                    scanf("%d", &x);
+                    if(x == 2)
+                        shouldExit = 1;
                     break;
                 }
-
-            }
+                if(!shouldExit && cat1 >= 1 && cat1 <= 4)
+                {
+                printf("Do you want to calculate another tax?: \n");
+                printf("\t\t 1.Yes\n\t\t 2.No\n");
+                printf("Choice: ");
+                scanf("%d", &x);
+                flushBuffer();
+                if(x == 2)
+                    shouldExit = 1;
+                }
+                if(shouldExit)
+                    break;
+                }
             break;
         case 2:
             displayAllBusinesses();
@@ -178,28 +216,27 @@ struct SSCL_Tax processCategory(struct SSCL_Tax r, const char *categoryName, int
 };
 
 void filterByCategory() {
-    char searchCategory[40];
-    int found = 0,c;
+    char searchCategory[50];
+    int found = 0;
 
     printf("\n======================================================\n");
     printf("                FILTER BY CATEGORY                    \n");
     printf("======================================================\n");
 
-    if (count == 0) {
+    if(count == 0) {
         printf("No records found. Please calculate a tax first.\n");
         printf("======================================================\n\n");
         return;
     }
 
     printf("Enter the category to search (e.g., Importers): ");
-    while ((c = getchar()) != '\n' && c != EOF);
     fgets(searchCategory, sizeof(searchCategory), stdin);
     searchCategory[strcspn(searchCategory, "\n")] = 0;
 
     printf("\n--- Search Results for '%s' ---\n", searchCategory);
 
-    for (int i = 0; i < count; i++) {
-        if (strcmp(s[i].goodCategory, searchCategory) == 0) {
+    for(int i = 0; i < count; i++) {
+        if(strcmp(s[i].goodCategory, searchCategory) == 0) {
             printf("Business Name    : %s\n", s[i].bsName);
             printf("Register Number  : %d\n", s[i].regNumber);
             printf("Total Tax        : Rs. %.2lf\n", s[i].salesTax);
@@ -208,9 +245,8 @@ void filterByCategory() {
         }
     }
 
-    if (found == 0) {
+    if(found == 0) {
         printf("No businesses found in this category.\n");
     }
     printf("\n");
 }
-
