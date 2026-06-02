@@ -5,16 +5,7 @@
 #include <ctype.h>
 
 #include "payable.c"
-/* -- Array sizes -- */
 #define MAX 20
-
-/* ------------------------------------------
-   PASTE ALL 5 STRUCTS HERE (one per member)
-   ------------------------------------------ */
-
-/* ------------------------------------------
-   PASTE ALL 35 FUNCTIONS HERE
-   ------------------------------------------ */
 
 int main() {
     int choice;
