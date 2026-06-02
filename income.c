@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <string.h>
+
 #define PERSONAL_RELIEF 1800000.0
 #define MAX 20
 struct IncomeTax {

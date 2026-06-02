@@ -1,4 +1,7 @@
-
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <ctype.h>
 struct LeasingPayment{
     char customer_name[50];
     char vehicle_type[40];

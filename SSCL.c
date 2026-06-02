@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <string.h>
 
 #define VAT 0.18
 #define SSCL 0.025

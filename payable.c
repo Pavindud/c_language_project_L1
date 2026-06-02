@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 struct PayableTax {
     char employee_name[50];
     char department[40];
