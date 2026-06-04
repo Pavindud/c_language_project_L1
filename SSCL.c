@@ -46,7 +46,9 @@ int displaySSCLMenu(){
     char ch;
     while(1==1){
         int cat1,cat2;
-        printf("_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_SSCL Tax Calculator_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_\n");
+        printf("\n======================================================\n");
+        printf("                SSCL TAX CALCULATOR                   \n");
+        printf("======================================================\n");
         printf("\t\t 1.Calculate new tax\n");
         printf("\t\t 2.View saved records\n");
         printf("\t\t 3.Filter by Category\n");
@@ -74,7 +76,12 @@ int displaySSCLMenu(){
                     }
                     flushBuffer();
                 printf("Enter the total sales for the year (Rs): ");
-                scanf("%lf", &s[count].goodsValues);
+                if(scanf("%lf", &s[count].goodsValues) != 1) {
+                    flushBuffer(); 
+                    printf("Invalid input. Please enter a valid amount.\n");
+                    continue;
+                }
+                flushBuffer();
                 if(s[count].goodsValues<60000000){
                     printf("The sales amount does not exceed the taxable limit of Rs. 60,000,000.\n");
                     break;
@@ -86,7 +93,12 @@ int displaySSCLMenu(){
                 printf("\t\t 4.Wholesalers and Retailers\n");
                 printf("\t\t 5.Other\n");
                 printf("Enter your category(1/2/3/4/5): ");
-                scanf("%d", &cat1);
+                if(scanf("%d", &cat1) != 1) {
+                    flushBuffer();
+                    printf("Invalid input. Please enter a number.\n\n");
+                    continue;
+                }
+                flushBuffer();
                 switch(cat1){
                 case 1:
                     s[count] = processCategory(s[count], "Importers", 100);
