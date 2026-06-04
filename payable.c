@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+
 struct PayableTax {
     char employee_name[50];
     char department[40];
@@ -8,7 +9,7 @@ struct PayableTax {
     double monthly_salary;
     double epf_amount;       
     double tax_amount;
-    double net_salary;       /* salary after EPF and tax */
+    double net_salary;       //salary after EPF and tax 
     char bracket_label[30];
 };
 
@@ -30,8 +31,9 @@ void validateSalaryInput(double *salary) {
 void getBracketLabel(double salary, char *label) {
     if (salary <= 150000) {
         strcpy(label, "No Tax");
-    } else {
-        double taxable = salary - 150000;  /* monthly taxable amount */
+    } 
+    else {
+        double taxable = salary - 150000;  // monthly taxable amount 
 
         if (taxable <= 83333) {
             strcpy(label, "6% Bracket");
@@ -52,14 +54,16 @@ void getBracketLabel(double salary, char *label) {
 }
 
 void calculatePayableTax(char name[], char dept[], char id[], 
-                          double salary, double *epf, 
-                          double *tax, double *net) {
+    
+    double salary, double *epf, 
+    double *tax, double *net) {
     double taxable;
     *epf = salary * 0.08;
 
     if (salary <= 150000) {
         *tax = 0.0;
-    } else {
+    }
+    else {
         taxable = salary - 150000;
 
         if (taxable <= 83333) {
@@ -68,7 +72,7 @@ void calculatePayableTax(char name[], char dept[], char id[],
             *tax = (83333 * 0.06) + ((taxable - 83333) * 0.18);
         } else if (taxable <= 166667) {
             *tax = (83333 * 0.06) + (41667 * 0.18) + ((taxable - 125000) * 0.24);
-        } else if (taxable <= 166667) {
+        } else if (taxable <= 208333) {
             *tax = (83333 * 0.06) + (41667 * 0.18) + (41667 * 0.24) + ((taxable - 166667) * 0.30);
         } else {
             *tax = (83333 * 0.06) + (41667 * 0.18) + (41667 * 0.24) + (41667 * 0.30) + ((taxable - 208333) * 0.36);
@@ -87,18 +91,18 @@ void savePayableRecord(char name[], char dept[], char id[],
         return;
     }
 
-    /* store strings into the struct */
+    //store strings into the struct
     strcpy(records[recordCount].employee_name, name);
     strcpy(records[recordCount].department, dept);
     strcpy(records[recordCount].emp_id, id);
 
-    /* Store numeric values */
+    //Store numeric values
     records[recordCount].monthly_salary = salary;
     records[recordCount].epf_amount     = epf;
     records[recordCount].tax_amount     = tax;
     records[recordCount].net_salary     = net;
 
-    /* Get and store bracket label */
+    //Get and store bracket label
     getBracketLabel(salary, records[recordCount].bracket_label);
 
     recordCount++;
@@ -121,7 +125,7 @@ void searchByDepartment() {
     printf("\n Enter Department to Search: ");
     scanf(" %[^\n]", search_dept);
 
-    /* Convert input to uppercase for case-insensitive search */
+    // Convert input to uppercase for case-insensitive search
     for (i = 0; search_dept[i]; i++) {
         upper_input[i] = toupper(search_dept[i]);
     }
@@ -133,13 +137,13 @@ void searchByDepartment() {
 
     for (i = 0; i < recordCount; i++) {
 
-        /* Convert stored department to uppercase */
+        //Convert stored department to uppercase 
         for (j = 0; records[i].department[j]; j++) {
             upper_stored[j] = toupper(records[i].department[j]);
         }
         upper_stored[j] = '\0';
 
-        /* Compare using strcmp */
+        // Compare using strcmp
         if (strcmp(upper_input, upper_stored) == 0) {
             printf(" Name       : %s\n", records[i].employee_name);
             printf(" Emp ID     : %s\n", records[i].emp_id);
@@ -169,12 +173,12 @@ void sortRecordsBySalary() {
         return;
     }
 
-    /* Bubble sort */
+    // Bubble sort
     for (i = 0; i < recordCount - 1; i++) {
         for (j = 0; j < recordCount - i - 1; j++) {
             if (records[j].monthly_salary > records[j + 1].monthly_salary) {
 
-                /* Swap entire structs */
+                // Swap entire structs
                 temp            = records[j];
                 records[j]      = records[j + 1];
                 records[j + 1]  = temp;
@@ -241,7 +245,7 @@ void displayPayableMenu() {
                 printf("       EMPLOYEE TAX CALCULATION         \n");
                 printf("========================================\n");
 
-                /* Get employee details */
+                // Get employee details
                 printf(" Enter Employee Name : ");
                 scanf(" %[^\n]", name);
 
@@ -251,13 +255,13 @@ void displayPayableMenu() {
                 printf(" Enter Employee ID   : ");
                 scanf(" %s", id);
 
-                /* Validate salary */
+                //Validate salary
                 validateSalaryInput(&salary);
 
-                /* Calculate tax and EPF */
-                calculatePayableTax(name, dept, id, salary, &epf, &tax, &net);
+                // Calculate tax and EPF
+                calculatePayableTax(name   , dept, id, salary, &epf, &tax, &net);
 
-                /* Display results */
+                // Display results
                 printf("\n========================================\n");
                 printf("            TAX SUMMARY                 \n");
                 printf("========================================\n");
@@ -270,13 +274,13 @@ void displayPayableMenu() {
                 printf(" Net Salary  : Rs. %.2f\n", net);
                 printf(" Bracket     : ");
 
-                /* Get and print bracket label */
+                // Get and print bracket label
                 char label[30];
                 getBracketLabel(salary, label);
                 printf("%s\n", label);
                 printf("========================================\n");
 
-                /* Ask to save */
+                // Ask to save
                 printf(" Save this record? (Y/N): ");
                 scanf(" %s", confirm);
 
