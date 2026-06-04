@@ -132,7 +132,7 @@ void searchByDepartment() {
     upper_input[i] = '\0';
 
     printf("\n========================================\n");
-    printf(" Search Results — Department: %s\n", upper_input);
+    printf(" Search Results - Department: %s\n", upper_input);
     printf("========================================\n");
 
     for (i = 0; i < recordCount; i++) {
@@ -254,6 +254,21 @@ void displayPayableMenu() {
 
                 printf(" Enter Employee ID   : ");
                 scanf(" %s", id);
+
+                // Check duplicate ID immediately 
+                int duplicate = 0;
+                int k;
+                for (k = 0; k < recordCount; k++) {
+                    if (strcmp(records[k].emp_id, id) == 0) {
+                        duplicate = 1;
+                        break;
+                    }
+                }
+
+                if (duplicate) {
+                    printf("\n Duplicate! Employee ID '%s' already exists.\n", id);
+                    break;  /* goes back to menu without continuing */
+                }
 
                 //Validate salary
                 validateSalaryInput(&salary);
